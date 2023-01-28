@@ -1,0 +1,19 @@
+{
+  "name": "project-1",
+  "version": "1.0.0",
+  "description": "our first node.js server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/123mitu123/project-1.git"
+  },
+  "author": "mitali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/123mitu123/project-1/issues"
+  },
+  "homepage": "https://github.com/123mitu123/project-1#readme"
+}
