@@ -1,0 +1,74 @@
+const http = require("http");
+
+const port = 8080;
+
+const toDOlist = ["complete node byte", "play cricket"];
+
+http
+    .createServer((req, res) => {
+        const { method, url } = req;
+
+        if (url === "/todos") {
+            if (method === "GET") {
+                res.writeHead(200, { "Content-Type": "text/html"});
+                res.write(toDOlist.toString());
+            }else if(method === 'POST'){
+                let body = "";
+                req.on('error',(err) => {
+                    console.error(err);
+                })
+                .on('data', (chunk) => {
+                    body += chunk;
+                })
+                .on("end", () => {
+                    body = JSON.parse(body);
+                    let newToDo = toDoList;
+                    newToDo.push(body.item);
+                    console.log(newToDo);
+                    res.writeHead(201);
+                })
+            }else if(method === 'DELETE'){
+                let body = "";
+                req.on('error',(err) => {
+                    console.error(err);
+                })
+                .on('data', (chunk) => {
+                    body += chunk;
+                })
+                .on("end", () => {
+                    body = JSON.parse(body);
+                    let deletedThis= body.item;
+                    
+                   /*  either this 
+                   for(let i=0; i< toDOlist.length; i++) {
+                        if(toDOlist[i] === deleteThis){
+                            toDolist.splice(i,1);
+                            break;
+                        }
+                    } */
+
+                    // or this
+
+                    toDolist.find ((element, index) => {
+                        if (element === deleteThis) {
+                            toDolist.splice(index,1);
+                        }
+                    });
+                    res.writeHead(204);
+                });
+            } else {
+                res.writeHead(501);
+            }
+
+            } else{
+            res.writeHead(404);
+        }
+        res.end();
+    }
+        )
+    .listen(port, () => {
+        console.log(`Nodejs server started on port ${port}`);
+    });
+
+
+// http://localhost:8081
